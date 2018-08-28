@@ -1,3 +1,5 @@
+using Attendance001.helper;
+using Attendance001.objects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +22,9 @@ namespace Attendance001
     public partial class Form1 : Form
     {
         //Create Standalone SDK class dynamicly.
-        public CZKEMClass axCZKEM1 = new CZKEMClass();
+        private CZKEMClass axCZKEM1 = new CZKEMClass();
+
+        private FileHelper fHelper = new FileHelper();
 
         public Form1()
         {
@@ -29,14 +33,6 @@ namespace Attendance001
             dispose();
         }
 
-        //private void Form1_Load(object sender, EventArgs e)
-        //{
-        //    //this.WindowState = FormWindowState.Minimized;
-        //    Debug.Write("Starting to dispose");
-        //    dispose();
-
-        //}
-
         #region Communication
         private bool bIsConnected = false;//the boolean value identifies whether the device is connected
         private int iMachineNumber = 1;//the serial number of the device.After connecting the device ,this value will be changed.
@@ -44,15 +40,11 @@ namespace Attendance001
         //If your device supports the TCP/IP communications, you can refer to this.
         //when you are using the tcp/ip communication,you can distinguish different devices by their IP address.
         private void dispose()
-        {
-            var textLines = File.ReadAllLines("orcl.txt");
-            string[] dataArray = textLines;
-            bIsConnected = axCZKEM1.Connect_Net(dataArray[6], Convert.ToInt32(dataArray[7]));
+        {         
+            
+            bIsConnected = axCZKEM1.Connect_Net(netDet.IP_AM, Convert.ToInt32(netDet.PORT_AM));
             if (bIsConnected == true)
             {
-                // popupNotifier1.Scroll = true;
-                //  popupNotifier1.ContentText = "device connected ";
-                // popupNotifier1.Popup();
 
                 lvLogs.Items.Clear();
                 if (bIsConnected == false)
@@ -112,8 +104,8 @@ namespace Attendance001
                 Cursor = Cursors.Default;
                 axCZKEM1.Disconnect();
 
-                string con2 = "Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=" + dataArray[0] + ")(PORT=" + dataArray[1] + "))" +
-   "(CONNECT_DATA=(SID=" + dataArray[2] + ")));User Id=" + dataArray[3] + ";Password=" + dataArray[4] + ";";
+                string con2 = "Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=" + netDet.IP_DB + ")(PORT=" + netDet.PORT_DB + "))" +
+   "(CONNECT_DATA=(SID=" + netDet.SID + ")));User Id=" + netDet.DBNAME + ";Password=" + netDet.DBPASS + ";";
                 Debug.Write("\r\n" + con2);
                 OracleConnection oraConn = new OracleConnection(con2);
                 try
