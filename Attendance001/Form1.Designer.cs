@@ -48,7 +48,6 @@ namespace Attendance001
             this.helloWorldLabel.Size = new System.Drawing.Size(255, 26);
             this.helloWorldLabel.TabIndex = 3;
             this.helloWorldLabel.Text = "Attendance Management";
-            this.helloWorldLabel.Click += new System.EventHandler(this.helloWorldLabel_Click);
             // 
             // lvLogs
             // 
@@ -63,7 +62,6 @@ namespace Attendance001
             this.lvLogs.TabIndex = 4;
             this.lvLogs.UseCompatibleStateImageBehavior = false;
             this.lvLogs.View = System.Windows.Forms.View.Details;
-            this.lvLogs.SelectedIndexChanged += new System.EventHandler(this.lvLogs_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -93,6 +91,8 @@ namespace Attendance001
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.form1_formClosing);
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

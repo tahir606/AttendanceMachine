@@ -57,6 +57,7 @@
     <Compile Include="helper\OrcHelper.cs" />
     <Compile Include="helper\ZKHelper.cs" />
     <Compile Include="objects\NetworkDetails.cs" />
+    <Compile Include="objects\Record.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
