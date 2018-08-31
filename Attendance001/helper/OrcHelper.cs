@@ -16,7 +16,7 @@ namespace Attendance001.helper
         private static OracleConnection orcConn;
 
         public OrcHelper()
-        {
+        { 
             netDet = fHelper.readNetworkDetails();
             if (orcConn == null)
                 createConnection();
@@ -45,7 +45,7 @@ namespace Attendance001.helper
                 //-----------Insert Query-----------------
                 string query = "INSERT INTO EMPLOYEE_TIMINGS_AUTO(XCODE, YCODE, MCODE, HCODE, EDATE, TIME1, STATUS) " +
                     " values (" + netDet.XCODE + "," + netDet.YCODE + "," + netDet.MCODE + "," + record.EnrollNumber + ",to_date('" + record.Date + "','mm/dd/yyyy'),'" + record.Time + "','Y')";
-                Debug.Write("\r\n" + query);
+                
                 OracleCommand oram3 = new OracleCommand(query, orcConn);
                 oram3.ExecuteNonQuery();
             }

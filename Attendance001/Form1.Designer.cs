@@ -1,3 +1,4 @@
+using Attendance001.Properties;
 using zkemkeeper;
 
 namespace Attendance001
@@ -36,6 +37,7 @@ namespace Attendance001
             this.lvLogsh2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lvLogsch5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lvLogsch6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btn_settings = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // helloWorldLabel
@@ -81,11 +83,25 @@ namespace Attendance001
             this.lvLogsch6.Text = "TIME";
             this.lvLogsch6.Width = 118;
             // 
+            // btn_settings
+            // 
+            this.btn_settings.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btn_settings.FlatAppearance.BorderSize = 0;
+            this.btn_settings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_settings.Image = global::Attendance001.Properties.Resources.Settings_icon;
+            this.btn_settings.Location = new System.Drawing.Point(462, 6);
+            this.btn_settings.Name = "btn_settings";
+            this.btn_settings.Size = new System.Drawing.Size(30, 37);
+            this.btn_settings.TabIndex = 5;
+            this.btn_settings.UseVisualStyleBackColor = true;
+            this.btn_settings.Click += new System.EventHandler(this.Btn_Settings_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(533, 292);
+            this.Controls.Add(this.btn_settings);
             this.Controls.Add(this.lvLogs);
             this.Controls.Add(this.helloWorldLabel);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -105,6 +121,7 @@ namespace Attendance001
         private System.Windows.Forms.ColumnHeader lvLogsh2;
         private System.Windows.Forms.ColumnHeader lvLogsch5;
         private System.Windows.Forms.ColumnHeader lvLogsch6;
+        private System.Windows.Forms.Button btn_settings;
     }
 }
 

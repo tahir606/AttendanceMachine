@@ -15,8 +15,8 @@ namespace Attendance001.helper
             var textLines = File.ReadAllLines("orcl.txt");
             string[] dataArray = textLines;
 
-            NetworkDetails networkDetails = new NetworkDetails();        
-           
+            NetworkDetails networkDetails = new NetworkDetails();
+
             networkDetails.IP_DB = dataArray[0];
             networkDetails.PORT_DB = dataArray[1];
             networkDetails.SID = dataArray[2];
@@ -30,6 +30,20 @@ namespace Attendance001.helper
             networkDetails.MCODE = int.Parse(dataArray[9]);
 
             return networkDetails;
+        }
+
+        public void WriteNetworkDetails(NetworkDetails nDet)
+        {
+            File.WriteAllText("orcl.txt", nDet.IP_DB + "\r\n" +
+                nDet.PORT_DB + "\r\n" +
+                nDet.SID + "\r\n" +
+                nDet.DBNAME + "\r\n" +
+                nDet.DBPASS + "\r\n" +
+                nDet.IP_AM + "\r\n" +
+                nDet.PORT_AM + "\r\n" +
+                nDet.XCODE + "\r\n" +
+                nDet.YCODE + "\r\n" +
+                nDet.MCODE);
         }
     }
 
