@@ -50,6 +50,7 @@ namespace Attendance001
             this.helloWorldLabel.Size = new System.Drawing.Size(255, 26);
             this.helloWorldLabel.TabIndex = 3;
             this.helloWorldLabel.Text = "Attendance Management";
+            this.helloWorldLabel.Click += new System.EventHandler(this.helloWorldLabel_Click);
             // 
             // lvLogs
             // 
@@ -100,10 +101,11 @@ namespace Attendance001
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(533, 292);
+            this.ClientSize = new System.Drawing.Size(533, 290);
             this.Controls.Add(this.btn_settings);
             this.Controls.Add(this.lvLogs);
             this.Controls.Add(this.helloWorldLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";

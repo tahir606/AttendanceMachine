@@ -19,7 +19,7 @@ namespace Attendance001
         public SettingsForm()
         {
             InitializeComponent();
-            label_error.Visible = false;
+            label11.Visible = false;
 
             fHelper = new FileHelper();
             NetworkDetails netDet = fHelper.readNetworkDetails();
@@ -51,7 +51,7 @@ namespace Attendance001
             if (db_ip.Equals("") || db_port.Equals("") || db_sid.Equals("") || db_name.Equals("") || db_pass.Equals("") ||
                 m_ip.Equals("") || m_port.Equals("") || comp_code.Equals("") || branch_code.Equals("") || machine_code.Equals(""))
             {
-                label_error.Visible = true;
+                label11.Visible = true;
             }
             else
             {
@@ -68,7 +68,7 @@ namespace Attendance001
                 nDet.MCODE = int.Parse(machine_code);
 
                 fHelper.WriteNetworkDetails(nDet);
-                label_error.Visible = false;
+                label11.Visible = false;
 
                 this.Close();
             }

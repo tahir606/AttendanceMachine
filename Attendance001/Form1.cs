@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tulpep.NotificationWindow;
 using zkemkeeper;
 
 // This is the code for your desktop app.
@@ -22,15 +23,19 @@ namespace Attendance001
 {
     public partial class Form1 : Form
     {
-        private ZKHelper zkHelper = new ZKHelper();
-        private OrcHelper orcHelper = new OrcHelper();        
+        private ZKHelper zkHelper;
+        private OrcHelper orcHelper;
 
         public Form1()
         {
-            InitializeComponent();
-            Debug.Write("\r\nInit");
+            InitializeComponent();          
+
+            zkHelper = new ZKHelper();
+            orcHelper = new OrcHelper();
+            
+            Debug.Write("Init");
             dispose();
-        }       
+        }
 
         #region Communication
         private int iMachineNumber = 1;//the serial number of the device.After connecting the device ,this value will be changed.
@@ -51,11 +56,6 @@ namespace Attendance001
             }
             ).Start();
 
-                      
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
 
         }
 
@@ -69,7 +69,7 @@ namespace Attendance001
 
         private void loadAndInsert()
         {
-            NetworkDetails netDet = new FileHelper().readNetworkDetails();            
+            NetworkDetails netDet = new FileHelper().readNetworkDetails();
 
             int iglcount = 0, iindex = 0;
 
@@ -77,6 +77,7 @@ namespace Attendance001
             if (records == null)
             {
                 Debug.Write("\r\n Null records");
+                NotificationHelper.CreateNotification("Null records");
                 return;
             }
 
@@ -84,22 +85,23 @@ namespace Attendance001
             //string fDate = "8/30/2018";
 
             if (InvokeRequired)
-            { 
-                this.Invoke(new MethodInvoker(delegate {
+            {
+                this.Invoke(new MethodInvoker(delegate
+                {
 
                     lvLogs.Items.Clear();
 
                     foreach (Record record in records)
                     {
                         if (record.Date.Equals(fDate))
-                        {                            
+                        {
                             iglcount++;
                             lvLogs.Items.Add(iglcount.ToString());
                             lvLogs.Items[iindex].SubItems.Add(record.EnrollNumber.ToString());
                             lvLogs.Items[iindex].SubItems.Add(record.Date.ToString());
                             lvLogs.Items[iindex].SubItems.Add(record.Time.ToString());
                             iindex++;
-                        }                        
+                        }
                     }
 
                     foreach (Record record in records)
@@ -110,15 +112,24 @@ namespace Attendance001
                         }
                     }
                 }));
-            }           
+            }
 
-            
-        }
+        }        
 
         private void Btn_Settings_Click(object sender, EventArgs e)
         {
             SettingsForm sForm = new SettingsForm();
             sForm.Show();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void helloWorldLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

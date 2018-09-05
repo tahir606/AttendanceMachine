@@ -49,7 +49,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.btn_save = new System.Windows.Forms.Button();
-            this.label_error = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // text_db_port
@@ -127,9 +127,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(50, 34);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 13);
+            this.label1.Size = new System.Drawing.Size(60, 13);
             this.label1.TabIndex = 10;
-            this.label1.Text = "Database IP";
+            this.label1.Text = "Databse IP";
             // 
             // label2
             // 
@@ -225,22 +225,22 @@
             this.btn_save.UseVisualStyleBackColor = false;
             this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
             // 
-            // label_error
+            // label11
             // 
-            this.label_error.AutoSize = true;
-            this.label_error.ForeColor = System.Drawing.Color.Brown;
-            this.label_error.Location = new System.Drawing.Point(403, 292);
-            this.label_error.Name = "label_error";
-            this.label_error.Size = new System.Drawing.Size(122, 13);
-            this.label_error.TabIndex = 21;
-            this.label_error.Text = "Field(s) cannot be empty";
+            this.label11.AutoSize = true;
+            this.label11.ForeColor = System.Drawing.Color.Brown;
+            this.label11.Location = new System.Drawing.Point(403, 292);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(122, 13);
+            this.label11.TabIndex = 21;
+            this.label11.Text = "Field(s) cannot be empty";
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(537, 353);
-            this.Controls.Add(this.label_error);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.btn_save);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -262,6 +262,7 @@
             this.Controls.Add(this.text_db_name);
             this.Controls.Add(this.text_sid);
             this.Controls.Add(this.text_db_port);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "SettingsForm";
             this.Text = "SettingsForm";
             this.ResumeLayout(false);
@@ -292,6 +293,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button btn_save;
-        private System.Windows.Forms.Label label_error;
+        private System.Windows.Forms.Label label11;
     }
 }

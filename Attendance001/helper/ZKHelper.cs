@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using zkemkeeper;
 
 namespace Attendance001.helper
@@ -15,13 +16,16 @@ namespace Attendance001.helper
 
         //Create Standalone SDK class dynamicly.
         public static CZKEMClass axCZKEM1 = new CZKEMClass();
-        private FileHelper fHelper = new FileHelper();
-
+        private FileHelper fHelper;
         private NetworkDetails netDet;
-
+        
         public ZKHelper()
         {
+
+            fHelper = new FileHelper();
             netDet = fHelper.readNetworkDetails();
+
+            Debug.Write("\r\n\n" + "Test Text");
         }
 
         private bool open()
@@ -33,6 +37,8 @@ namespace Attendance001.helper
             }
             else
             {
+                NotificationHelper.CreateNotification("Unable to connect to Machine");
+                Debug.Write("Unable to connect to Machine");
                 return false;
             }
         }
@@ -81,10 +87,12 @@ namespace Attendance001.helper
 
                 if (idwErrorCode != 0)
                 {
+                    NotificationHelper.CreateNotification("Reading data from terminal failed,ErrorCode: " + idwErrorCode.ToString());
                     Debug.Write("Reading data from terminal failed,ErrorCode: " + idwErrorCode.ToString(), "Error");
                 }
                 else
                 {
+                    NotificationHelper.CreateNotification("No data from terminal returns!");
                     Debug.Write("No data from terminal returns!", "Error");
                 }
             }
@@ -106,16 +114,18 @@ namespace Attendance001.helper
             {
                 axCZKEM1.EnableDevice(iMachineNumber, true);    //enable the device  
                 Debug.Write("Deleting records");
+                //txt_error.Text = "Deleting records";
                 //axCZKEM1.DeleteAttlogBetweenTheDate(iMachineNumber, "7/5/2012", "8/5/2012");
                 //YYYY - MM - DD hh: mm: ss
                 bool ret = axCZKEM1.DeleteAttlogBetweenTheDate(iMachineNumber, "2018-8-29 00:00:00", "2018-8-30 23:59:59");
                 //bool ret = axCZKEM1.DeleteAttlogByTime(iMachineNumber, "2018-1-23 00:00:00");
                 //bool ret = axCZKEM1.ClearGLog(iMachineNumber);
 
-                if(!ret)
+                if (!ret)
                 {
                     int idwErrorCode = 0;
                     axCZKEM1.GetLastError(ref idwErrorCode);
+                    NotificationHelper.CreateNotification("Operation failed, ErrorCode = " + idwErrorCode.ToString());
                     Debug.Write("Operation failed, ErrorCode = " + idwErrorCode.ToString());
                 }
 
