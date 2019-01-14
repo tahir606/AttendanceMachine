@@ -15,7 +15,7 @@ namespace Attendance001.objects
             _enrollNumber = enrollNumber;
             _date = date;
             _time = time;
-        }
+        }      
 
         public int EnrollNumber { get => _enrollNumber; set => _enrollNumber = value; }
         public string Date { get => _date; set => _date = value; }

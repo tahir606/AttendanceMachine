@@ -264,7 +264,7 @@
             this.Controls.Add(this.text_db_port);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "SettingsForm";
-            this.Text = "SettingsForm";
+            this.Text = "n";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -1,15 +1,14 @@
 ﻿using Attendance001.objects;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace Attendance001.helper
 {
     class FileHelper
     {
+        const string timeFile = "lastTimeStamp.txt";
+        const string logFile = "log.txt";
+
         public NetworkDetails readNetworkDetails()
         {
             var textLines = File.ReadAllLines("orcl.txt");
@@ -45,6 +44,40 @@ namespace Attendance001.helper
                 nDet.YCODE + "\r\n" +
                 nDet.MCODE);
         }
+
+        public string ReadTimeStamp()
+        {
+            string textLines = File.ReadAllText(timeFile);        
+            return textLines;
+        }
+
+        public void WriteTimeStamp(string timeStamp)
+        {
+            File.WriteAllText(timeFile, timeStamp);
+        }
+
+        public static void writeToLog(string log)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(log);
+
+          
+            // flush every 20 seconds as you do it
+            File.AppendAllText(logFile, sb.ToString());
+            sb.Clear();
+        }
+
+        public static void writeToLog(string log, string error)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(error + " -> " + log);
+
+
+            // flush every 20 seconds as you do it
+            File.AppendAllText(logFile, sb.ToString());
+            sb.Clear();
+        }
     }
+
 
 }

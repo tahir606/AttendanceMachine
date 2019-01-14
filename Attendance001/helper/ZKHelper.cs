@@ -25,7 +25,7 @@ namespace Attendance001.helper
             fHelper = new FileHelper();
             netDet = fHelper.readNetworkDetails();
 
-            Debug.Write("\r\n\n" + "Test Text");
+            FileHelper.writeToLog("\r\n\n" + "Test Text");
         }
 
         private bool open()
@@ -38,7 +38,7 @@ namespace Attendance001.helper
             else
             {
                 NotificationHelper.CreateNotification("Unable to connect to Machine");
-                Debug.Write("Unable to connect to Machine");
+                FileHelper.writeToLog("Unable to connect to Machine");
                 return false;
             }
         }
@@ -73,11 +73,27 @@ namespace Attendance001.helper
                 while (axCZKEM1.SSR_GetGeneralLogData(iMachineNumber, out sdwEnrollNumber, out idwVerifyMode,
                             out idwInOutMode, out idwYear, out idwMonth, out idwDay, out idwHour, out idwMinute, out idwSecond, ref idwWorkcode))//get records from the memory
                 {
+
+                    string hour = idwHour.ToString(),
+                        min = idwMinute.ToString();
+
+                    if (hour.Length == 1)
+                    {
+                        hour = "0" + hour;
+                    }
+                    if (min.Length == 1)
+                    {
+                        min = "0" + min;
+                    }
+
                     Record record = new Record(int.Parse(sdwEnrollNumber),
                         idwMonth.ToString() + "/" + idwDay.ToString() + "/" + idwYear.ToString(),
-                        idwHour.ToString() + ":" + idwMinute.ToString() + ":" + idwSecond.ToString());
+                        hour + "." + min);
                     records.Add(record);
                 }
+
+                axCZKEM1.EnableDevice(iMachineNumber, true);//enable the device               
+                axCZKEM1.Disconnect();
 
                 return records;
             }
@@ -88,17 +104,14 @@ namespace Attendance001.helper
                 if (idwErrorCode != 0)
                 {
                     NotificationHelper.CreateNotification("Reading data from terminal failed,ErrorCode: " + idwErrorCode.ToString());
-                    Debug.Write("Reading data from terminal failed,ErrorCode: " + idwErrorCode.ToString(), "Error");
+                    FileHelper.writeToLog("Reading data from terminal failed,ErrorCode: " + idwErrorCode.ToString(), "Error");
                 }
                 else
                 {
                     NotificationHelper.CreateNotification("No data from terminal returns!");
-                    Debug.Write("No data from terminal returns!", "Error");
+                    FileHelper.writeToLog("No data from terminal returns!", "Error");
                 }
             }
-
-            //axCZKEM1.EnableDevice(iMachineNumber, true);//enable the device               
-            axCZKEM1.Disconnect();
 
             return null;
         }
@@ -113,7 +126,7 @@ namespace Attendance001.helper
             try
             {
                 axCZKEM1.EnableDevice(iMachineNumber, true);    //enable the device  
-                Debug.Write("Deleting records");
+                FileHelper.writeToLog("Deleting records");
                 //txt_error.Text = "Deleting records";
                 //axCZKEM1.DeleteAttlogBetweenTheDate(iMachineNumber, "7/5/2012", "8/5/2012");
                 //YYYY - MM - DD hh: mm: ss
@@ -126,14 +139,14 @@ namespace Attendance001.helper
                     int idwErrorCode = 0;
                     axCZKEM1.GetLastError(ref idwErrorCode);
                     NotificationHelper.CreateNotification("Operation failed, ErrorCode = " + idwErrorCode.ToString());
-                    Debug.Write("Operation failed, ErrorCode = " + idwErrorCode.ToString());
+                    FileHelper.writeToLog("Operation failed, ErrorCode = " + idwErrorCode.ToString());
                 }
 
                 return false;
             }
             catch (Exception e)
             {
-                Debug.Write(e.Message);
+                FileHelper.writeToLog(e.Message);
             }
 
             return false;

@@ -33,7 +33,8 @@ namespace Attendance001
             zkHelper = new ZKHelper();
             orcHelper = new OrcHelper();
             
-            Debug.Write("Init");
+
+            FileHelper.writeToLog("Init");
             dispose();
         }
 
@@ -61,7 +62,7 @@ namespace Attendance001
 
         private void form1_formClosing(object sender, FormClosingEventArgs e)
         {
-            Debug.Write("Closing");
+            FileHelper.writeToLog("Closing");
             ZKHelper.axCZKEM1.Disconnect();
         }
         #endregion
@@ -72,17 +73,20 @@ namespace Attendance001
             NetworkDetails netDet = new FileHelper().readNetworkDetails();
 
             int iglcount = 0, iindex = 0;
-
+            FileHelper.writeToLog("Getting Records");
             List<Record> records = zkHelper.getAllLogData();
+            FileHelper.writeToLog("Got Records");
             if (records == null)
             {
-                Debug.Write("\r\n Null records");
+                FileHelper.writeToLog("\r\n Null records");
                 NotificationHelper.CreateNotification("Null records");
                 return;
             }
 
-            string fDate = DateTime.Now.ToString("M/d/yyyy");
+            //string fDate = DateTime.Now.ToString("M/d/yyyy");        
             //string fDate = "8/30/2018";
+            string fDate = orcHelper.getLastDateAdded();                   
+            DateTime maxEdate = DateTime.Parse(fDate);
 
             if (InvokeRequired)
             {
@@ -93,7 +97,8 @@ namespace Attendance001
 
                     foreach (Record record in records)
                     {
-                        if (record.Date.Equals(fDate))
+                        DateTime rDate = DateTime.Parse(record.Date);
+                        if (rDate >= maxEdate)
                         {
                             iglcount++;
                             lvLogs.Items.Add(iglcount.ToString());
@@ -106,7 +111,8 @@ namespace Attendance001
 
                     foreach (Record record in records)
                     {
-                        if (record.Date.Equals(fDate))
+                        DateTime rDate = DateTime.Parse(record.Date);
+                        if (rDate >= maxEdate)
                         {
                             orcHelper.addRecordToTable(record);
                         }

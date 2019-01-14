@@ -1,6 +1,6 @@
 ﻿using Attendance001.objects;
+using Oracle.ManagedDataAccess.Client;
 using System;
-using System.Data.OracleClient;
 using System.Diagnostics;
 
 namespace Attendance001.helper
@@ -35,12 +35,12 @@ namespace Attendance001.helper
                 orcConn.Open();
 
                 NotificationHelper.CreateNotification("Connection Opened");
-                Debug.Write("\r\n" + "Connection Opened");
+                FileHelper.writeToLog("\r\n" + "Connection Opened");
             }
             catch (Exception e)
             {
                 NotificationHelper.CreateNotification(e.Message);
-                Debug.Write(e.Message);
+                FileHelper.writeToLog(e.Message);
             }
         }
 
@@ -54,23 +54,25 @@ namespace Attendance001.helper
 
                 OracleCommand oram3 = new OracleCommand(query, orcConn);
                 oram3.ExecuteNonQuery();
+
+                FileHelper.writeToLog("\r\n" + "Record Inserted");
             }
             catch (Exception e)
             {
-                Debug.Write("\r\n" + e.Message);
+                FileHelper.writeToLog("\r\n" + e.Message);
             }
+        }
+
+        public string getLastDateAdded()
+        {
+            string query = "SELECT MAX(EDATE) AS EDATE FROM EMPLOYEE_TIMINGS_AUTO";           
+            OracleDataAdapter oraADAPT2 = new OracleDataAdapter(query, orcConn);
+            OracleDataReader dr2;
+            OracleCommand orcom2 = new OracleCommand(query, orcConn);
+            dr2 = orcom2.ExecuteReader();
+            dr2.Read();
+            string edate = dr2["EDATE"].ToString();
+            return edate;
         }
     }
 }
-
-
-
-//------------Select Query---------------
-//string com2 = "select * from " + dataArray[8] + " where COUNT=" + a + " and ACODE=" + b + " and EDATE=to_date('" + c + "','dd/mm/yyyy') and TIMIN='" + d + "' ";
-//Debug.Write("\r\n" + com2);
-//OracleDataAdapter oraADAPT2 = new OracleDataAdapter(com2, oraConn);
-//OracleDataReader dr2;
-//OracleCommand orcom2 = new OracleCommand(com2, oraConn);
-//dr2 = orcom2.ExecuteReader();
-//dr2.Read();
-//string acode = dr2["ACODE"].ToString();
